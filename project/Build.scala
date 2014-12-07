@@ -55,4 +55,12 @@ object MackerelClientBuild extends Build {
       )
     )
   )
+
+  lazy val example = Project(
+    "mackerel-client-scala-example",
+    file("example"),
+    settings = buildSettings ++ Seq(
+      name := "mackerel-client-scala-example"
+    )
+  ).dependsOn(root).aggregate(root)
 }
