@@ -14,9 +14,22 @@ mackerel-client-scala is Scala Client for [Mackerel API](http://help-ja.mackerel
 Usage
 -------------
 
-TODO
+```scala
+resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
 
-And There are example project. Plsese See [Example README](https://github.com/krrrr38/mackerel-client-scala/tree/master/example)
+libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.1.0"
+```
+
+And there is an example project. Plsese See [Example README](https://github.com/krrrr38/mackerel-client-scala/tree/master/example)
+
+Synopsis
+------------
+
+```scala
+import com.krrrr38.mackerel4s.Mackerel
+val mackerel = new Mackerel("api-key")
+mackerel.listHosts.setService("service-name").run
+```
 
 Contribution
 ---------------

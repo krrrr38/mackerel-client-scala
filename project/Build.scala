@@ -18,6 +18,8 @@ object BuildSettings {
       organization := "com.krrrr38",
       scalaVersion := "2.11.4",
       crossScalaVersions := scalaVersion.value :: "2.10.4" :: Nil,
+      version := "0.1.0",
+      isSnapshot := false,
       scalacOptions ++= (
         "-deprecation" ::
           "-feature" ::
@@ -34,6 +36,31 @@ object BuildSettings {
       shellPrompt := { state =>
         val branch = Process("git rev-parse --abbrev-ref HEAD").lines.headOption.getOrElse("N/A")
         s"[$CYAN${name.value}$RESET#$CYAN$branch$RESET] "
+      },
+      pomExtra :=
+        <url>http://github.com/krrrr38/mackerel-client-scala</url>
+          <scm>
+            <url>git@github.com:krrrr38/mackerel-client-scala.git</url>
+            <connection>scm:git:git@github.com:krrrr38/mackerel-client-scala.git</connection>
+          </scm>
+          <developers>
+            <developer>
+              <id>krrrr38</id>
+              <name>Ken Kaizu</name>
+              <url>http://www.krrrr38.com</url>
+            </developer>
+          </developers>,
+      publishArtifact in Test := false,
+      publishMavenStyle := true,
+      publishTo := {
+        val ghpageMavenDir: Option[String] =
+          (Process("ghq list --full-path") #| Process("grep krrrr38/maven")).lines.headOption
+        ghpageMavenDir.map { dirPath =>
+          Resolver.file(
+            organization.value,
+            file(dirPath)
+          )(Patterns(true, Resolver.mavenStyleBasePattern))
+        }
       }
     )
 }
@@ -47,7 +74,6 @@ object MackerelClientBuild extends Build {
     file("."),
     settings = buildSettings ++ Seq(
       name := "mackerel-client-scala",
-      version := "0.1.0",
       description := "Mackerel Scala API Client",
       libraryDependencies ++= Seq(
         json4sJackson, dispatch,
