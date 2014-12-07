@@ -54,7 +54,9 @@ object BuildSettings {
       publishMavenStyle := true,
       publishTo := {
         val ghpageMavenDir: Option[String] =
-          (Process("ghq list --full-path") #| Process("grep krrrr38/maven")).lines.headOption
+          if (Process("which ghq").! == 0) {
+            (Process("ghq list --full-path") #| Process("grep krrrr38/maven")).lines.headOption
+          } else None
         ghpageMavenDir.map { dirPath =>
           Resolver.file(
             organization.value,
