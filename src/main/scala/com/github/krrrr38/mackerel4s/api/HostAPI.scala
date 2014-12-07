@@ -38,15 +38,16 @@ trait HostAPI {
   /**
    * update a host info.
    *
-   * [NOTICE] Even if you want to update one column,
-   * you should set all params(`name`, `meta`, `interfaces`, `roleFullNames`).
+   * [NOTICE]
+   * name, meta and interfaces are overwritten.
+   * but if you set roleFullnames, just add them.
    *
    * @see [[http://help-ja.mackerel.io/entry/spec/api/v0#host-update]]
    * @param hostId
    * @param name
    * @param meta
    * @param interfaces
-   * @param roleFullNames
+   * @param roleFullnames
    * @return
    */
   def updateHost(
@@ -54,7 +55,7 @@ trait HostAPI {
     name: HostName,
     meta: JObject = JObject(),
     interfaces: Seq[Interface] = Nil,
-    roleFullNames: Seq[RoleFullname] = Nil) = UpdateHostBuilder(client(s"/hosts/$hostId").PUT, name, meta, interfaces, roleFullNames)
+    roleFullnames: Seq[RoleFullname] = Nil) = UpdateHostBuilder(client(s"/hosts/$hostId").PUT, name, meta, interfaces, roleFullnames)
 
   /**
    * update a host status info.

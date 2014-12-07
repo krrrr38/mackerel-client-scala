@@ -16,7 +16,7 @@ private[builder] case class CreateHostParams(
   name: HostName = "",
   meta: JObject = JObject(),
   interfaces: Seq[Interface] = Nil,
-  roleFullNames: Seq[RoleFullname] = Nil)
+  roleFullnames: Seq[RoleFullname] = Nil)
 
 private[builder] case class CreateHostBuilder(private val req: Req, params: CreateHostParams) extends RequestBuilder[HostIdResponse] {
   /**
@@ -39,7 +39,7 @@ private[builder] case class CreateHostBuilder(private val req: Req, params: Crea
    * @param fullname
    * @return
    */
-  def addRoleFullname(fullname: RoleFullname) = this.copy(params = params.copy(roleFullNames = fullname +: params.roleFullNames))
+  def addRoleFullname(fullname: RoleFullname) = this.copy(params = params.copy(roleFullnames = fullname +: params.roleFullnames))
 
   /**
    * set role names such as Seq("<service-name>:<role-name>").
@@ -47,5 +47,5 @@ private[builder] case class CreateHostBuilder(private val req: Req, params: Crea
    * @param fullnames
    * @return
    */
-  def addRoleFullnames(fullnames: Seq[RoleFullname]) = this.copy(params = params.copy(roleFullNames = fullnames ++ params.roleFullNames))
+  def addRoleFullnames(fullnames: Seq[RoleFullname]) = this.copy(params = params.copy(roleFullnames = fullnames ++ params.roleFullnames))
 }
