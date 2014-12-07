@@ -1,0 +1,1 @@
+{"tsdbLatest":{"host1":{"cpu.user.percentage":{"time":1417868700,"value":5.75},"loadavg5":{"time":1417868700,"value":2.8375}},"host2":{"cpu.user.percentage":{"time":1417868700,"value":5.75},"loadavg5":{"time":1417868700,"value":2.8375}}}}
