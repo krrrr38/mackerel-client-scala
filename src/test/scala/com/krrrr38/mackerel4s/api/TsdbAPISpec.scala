@@ -23,7 +23,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
           .addMetrics(Seq(HostMetric("host_id", "metric_name", 5.1, 141790755)))
           .run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }
@@ -34,7 +34,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
         MockTsdbAPI.postTsdb(Seq(HostMetric("host_id", "metric_name", 10.0, new Date())))
           .run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }
@@ -50,7 +50,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
           .addNames(Seq("cpu.user.percentage"))
           .run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         // following results are according to test/resources/api/GET/v0/tsdb/latest.json
         res.tsdbLatest.size shouldBe 2
         val hostMetric = res.tsdbLatest.get("host1").get

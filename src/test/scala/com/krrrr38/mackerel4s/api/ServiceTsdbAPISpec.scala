@@ -23,7 +23,7 @@ class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
           .addMetrics(Seq(ServiceMetric("metric_name", 5.1, 141790755)))
           .run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }
@@ -33,7 +33,7 @@ class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
       val futureResponse =
         MockServiceTsdbAPI.postServiceMetric("service_name", Seq(ServiceMetric("metric_name", 10.0, new Date())))
           .run
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }

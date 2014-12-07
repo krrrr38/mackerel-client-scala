@@ -30,7 +30,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
           .run
 
       // to get result, it takes not small time...
-      whenReady(futureResponse, PatienceConfiguration.Timeout(Span(5, Seconds))) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.hosts.length shouldBe 2
 
         val host = res.hosts.head
@@ -52,7 +52,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
           .addInterfaces(Seq(Interface("name2", "ip2", "mac_address2")))
           .run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.id shouldBe "host_id"
       }
     }
@@ -62,7 +62,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
     it("return a host info") {
       val futureResponse = MockHostAPI.getHost("host_id").run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.host.name shouldBe "Layra.local"
         res.host.isRetired shouldBe false
       }
@@ -73,7 +73,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
     it("return host id, if success") {
       val futureResponse = MockHostAPI.updateHost("host_id", "host_name").run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.id shouldBe "host_id"
       }
     }
@@ -83,7 +83,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
     it("return success info, if success") {
       val futureResponse = MockHostAPI.updateHostStatus("host_id", "standby").run
 
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }
@@ -92,7 +92,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
   describe("retire host through api") {
     it("return success info, if success") {
       val futureResponse = MockHostAPI.retireHost("host_id").run
-      whenReady(futureResponse) { res =>
+      whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
       }
     }
