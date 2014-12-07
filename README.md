@@ -1,6 +1,9 @@
 mackerel-client-scala
 ==================
 
+[![Build Status](https://travis-ci.org/krrrr38/mackerel-client-scala.svg)](https://travis-ci.org/krrrr38/mackerel-client-scala)
+[![Coverage Status](https://img.shields.io/coveralls/krrrr38/mackerel-client-scala.svg)](https://coveralls.io/r/krrrr38/mackerel-client-scala)
+
 mackerel-client-scala - Mackerel Scala API Client
 
 Description
