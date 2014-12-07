@@ -16,6 +16,8 @@ Usage
 
 TODO
 
+And There are example project. Plsese See [Example README](https://github.com/krrrr38/mackerel-client-scala/tree/master/example)
+
 Contribution
 ---------------
 1. Fork (https://github.com/krrrr38/mackerel-client-scala)
