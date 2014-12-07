@@ -15,7 +15,7 @@ object BuildSettings {
 
   val buildSettings =
     com.typesafe.sbt.SbtScalariform.scalariformSettings ++ Seq(
-      organization := "com.github.krrrr38",
+      organization := "com.krrrr38",
       scalaVersion := "2.11.4",
       crossScalaVersions := scalaVersion.value :: "2.10.4" :: Nil,
       scalacOptions ++= (
