@@ -6,10 +6,14 @@ import org.json4s.{ NoTypeHints, JObject }
 import org.json4s.jackson.Serialization
 
 import com.krrrr38.mackerel4s.model.{ Interface, HostIdResponse }
-import com.krrrr38.mackerel4s.model.Types._
+import com.krrrr38.mackerel4s.model.Types.{ Path, HostName, RoleFullname }
 
-object CreateHostBuilder {
-  def apply(req: Req, name: HostName): CreateHostBuilder = CreateHostBuilder(req, CreateHostParams(name))
+object CreateHostBuilder extends APIBuilder[Unit] {
+  override val FullPath = (_: Unit) => "/hosts"
+  override val MethodVerb = MethodVerbPost
+
+  def apply(client: Path => Req, name: HostName, roleFullnames: Seq[RoleFullname] = Nil): CreateHostBuilder =
+    CreateHostBuilder(baseRequest(client, ()), CreateHostParams(name, roleFullnames = roleFullnames))
 }
 
 private[builder] case class CreateHostParams(

@@ -75,15 +75,17 @@ object UpdateHostStatus extends App {
   } else {
     val apikey = args(0)
     val hostId = args(1)
-    val newStatus = args(2)
-    val mackerel = new Mackerel(apikey)
+    lazy val statusError = println(s"[${Console.RED}error${Console.RESET}] status should be working, standby, maintenance or poweroff.")
+    HostStatus.fromString(args(2)).fold(statusError) { newStatus =>
+      val mackerel = new Mackerel(apikey)
 
-    // update host status
-    ExampleUtil.showFutureResponse[SuccessResponse](mackerel.updateHostStatus(hostId, newStatus).run) { response =>
-      if (response.success) {
-        println("Success to update Host Status: host id = " + hostId + ", new status = " + newStatus)
-      } else {
-        println("Failed to update Host Status: host id = " + hostId)
+      // update host status
+      ExampleUtil.showFutureResponse[SuccessResponse](mackerel.updateHostStatus(hostId, newStatus).run) { response =>
+        if (response.success) {
+          println("Success to update Host Status: host id = " + hostId + ", new status = " + newStatus)
+        } else {
+          println("Failed to update Host Status: host id = " + hostId)
+        }
       }
     }
   }

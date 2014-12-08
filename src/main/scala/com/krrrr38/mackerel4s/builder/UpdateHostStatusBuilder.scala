@@ -1,15 +1,19 @@
 package com.krrrr38.mackerel4s
 package builder
 
-import com.krrrr38.mackerel4s.model.Types.HostStatus
 import dispatch.Req
 import org.json4s.NoTypeHints
 import org.json4s.jackson.Serialization
 
-import com.krrrr38.mackerel4s.model.SuccessResponse
+import com.krrrr38.mackerel4s.model.{ HostStatus, SuccessResponse }
+import com.krrrr38.mackerel4s.model.Types.{ Path, HostID }
 
-object UpdateHostStatusBuilder {
-  def apply(req: Req, status: HostStatus): UpdateHostStatusBuilder = UpdateHostStatusBuilder(req, UpdateHostStatusParams(status))
+object UpdateHostStatusBuilder extends APIBuilder[HostID] {
+  override val FullPath = (hostId: HostID) => s"/hosts/$hostId/status"
+  override val MethodVerb = MethodVerbPost
+
+  def apply(client: Path => Req, hostId: HostID, status: HostStatus): UpdateHostStatusBuilder =
+    UpdateHostStatusBuilder(baseRequest(client, hostId), UpdateHostStatusParams(status))
 }
 
 private[builder] case class UpdateHostStatusParams(status: HostStatus)

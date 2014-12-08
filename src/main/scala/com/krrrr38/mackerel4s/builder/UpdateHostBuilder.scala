@@ -5,14 +5,18 @@ import dispatch.Req
 import org.json4s.JObject
 
 import com.krrrr38.mackerel4s.model.Interface
-import com.krrrr38.mackerel4s.model.Types._
+import com.krrrr38.mackerel4s.model.Types.{ Path, HostID, HostName, RoleFullname }
 
-object UpdateHostBuilder {
+object UpdateHostBuilder extends APIBuilder[HostID] {
+  override val FullPath = (hostId: HostID) => s"/hosts/$hostId"
+  override val MethodVerb = MethodVerbPut
+
   def apply(
-    req: Req,
+    client: Path => Req,
+    hostId: HostID,
     name: HostName,
     meta: JObject,
     interfaces: Seq[Interface],
     roleFullNames: Seq[RoleFullname]): CreateHostBuilder =
-    CreateHostBuilder(req, CreateHostParams(name, meta, interfaces, roleFullNames))
+    CreateHostBuilder(baseRequest(client, hostId), CreateHostParams(name, meta, interfaces, roleFullNames))
 }

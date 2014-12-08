@@ -5,8 +5,6 @@ import java.util.Date
 
 import Types._
 
-trait TsdbMetric
-
 /**
  * host tsdb data
  * @param hostId
@@ -14,7 +12,7 @@ trait TsdbMetric
  * @param value data value
  * @param time epoch second
  */
-case class HostMetric(hostId: HostID, name: MetricName, value: Double, time: Long) extends TsdbMetric
+case class HostMetric(hostId: HostID, name: MetricName, value: Double, time: Long)
 
 object HostMetric {
   /**
@@ -35,7 +33,7 @@ object HostMetric {
  * @param value data value
  * @param time epoch second
  */
-case class ServiceMetric(name: MetricName, value: Double, time: Long) extends TsdbMetric
+case class ServiceMetric(name: MetricName, value: Double, time: Long)
 
 object ServiceMetric {
   /**

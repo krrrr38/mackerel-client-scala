@@ -3,11 +3,23 @@ package builder
 
 import dispatch.Req
 
-import com.krrrr38.mackerel4s.model.HostsResponse
-import com.krrrr38.mackerel4s.model.Types._
+import com.krrrr38.mackerel4s.model.{ HostStatus, HostsResponse }
+import com.krrrr38.mackerel4s.model.Types.{ Path, HostName, ServiceName, RoleName }
 
-object ListHostsBuilder {
-  def apply(req: Req): ListHostsBuilder = ListHostsBuilder(req, ListHostsParams())
+object ListHostsBuilder extends APIBuilder[Unit] {
+  override val FullPath = (_: Unit) => "/hosts.json"
+  override val MethodVerb = MethodVerbGet
+
+  def apply(
+    client: Path => Req,
+    service: Option[String],
+    roles: Seq[RoleName],
+    name: Option[String],
+    statuses: Seq[HostStatus]): ListHostsBuilder =
+    ListHostsBuilder(
+      baseRequest(client, ()),
+      ListHostsParams(service, roles, name, statuses)
+    )
 }
 
 private[builder] case class ListHostsParams(
@@ -32,7 +44,7 @@ private[builder] case class ListHostsBuilder(private val req: Req, params: ListH
     val parameters = params.service.map(Params.SERVICE -> _).toSeq ++
       params.roles.map(Params.ROLE -> _) ++
       params.name.map(Params.NAME -> _).toSeq ++
-      params.statuses.map(Params.STATUS -> _)
+      params.statuses.map(Params.STATUS -> _.toString)
     parameters.foldLeft(req) {
       case (r, (key, value)) =>
         r.addQueryParameter(key, value)

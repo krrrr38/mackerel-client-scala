@@ -2,14 +2,17 @@ package com.krrrr38.mackerel4s
 package api
 
 import dispatch._
+import com.krrrr38.mackerel4s.model.Types.{ ApiKey, Path }
 
 trait MackerelClient {
   val setting: ClientSetting
-  val apiKey: String
+  val apiKey: ApiKey
 
-  lazy val baseRequest: Req =
+  val baseRequest: Req =
     Req(_.addHeader(setting.AUTH_HEADER_KEY, apiKey))
       .setContentType("application/json", "UTF-8")
 
-  def client(path: String): Req = baseRequest.setUrl(setting.BASE_URL + path)
+  val client = (path: Path) =>
+    baseRequest.setUrl(setting.BASE_URL + path)
 }
+

@@ -1,7 +1,7 @@
 package com.krrrr38.mackerel4s
 package api
 
-import com.krrrr38.mackerel4s.model.Types._
+import com.krrrr38.mackerel4s.model.Types.{ HostID, MetricName }
 import com.krrrr38.mackerel4s.model.HostMetric
 import com.krrrr38.mackerel4s.builder.{ LatestTsdbBuilder, PostTsdbBuilder }
 
@@ -15,7 +15,7 @@ trait TsdbAPI {
    * @param metrics
    * @return
    */
-  def postTsdb(metrics: Seq[HostMetric]) = PostTsdbBuilder[HostMetric](client("/tsdb").POST, metrics)
+  def postTsdb(metrics: Seq[HostMetric]) = PostTsdbBuilder(client, metrics)
 
   /**
    * get latest host metrics.

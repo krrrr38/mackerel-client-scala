@@ -1,14 +1,14 @@
 package com.krrrr38.mackerel4s
 package builder
 
-import com.fasterxml.jackson.core.JsonParseException
-import com.krrrr38.mackerel4s.model.APIResponse
 import org.json4s.MappingException
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.{ FunSpec, Matchers }
+import com.fasterxml.jackson.core.JsonParseException
 
 import dispatch.{ Req, Res }
+import com.krrrr38.mackerel4s.model.{ MackerelResponseException, MackerelClientException, APIResponse }
 
+import org.scalamock.scalatest.MockFactory
+import org.scalatest.{ FunSpec, Matchers }
 import org.scalatest.concurrent.ScalaFutures._
 
 class RequestBuilderSpec extends FunSpec with MockFactory with Matchers {

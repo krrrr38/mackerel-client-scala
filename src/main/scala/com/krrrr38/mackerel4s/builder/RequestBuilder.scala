@@ -1,13 +1,35 @@
 package com.krrrr38.mackerel4s
 package builder
 
-import com.krrrr38.mackerel4s.model.APIResponse
 import dispatch._
 import org.json4s._
 import com.fasterxml.jackson.core.JsonParseException
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.reflect.{ ClassTag, classTag }
+
+import com.krrrr38.mackerel4s.model.{ MackerelClientException, MackerelResponseException, APIResponse }
+import com.krrrr38.mackerel4s.model.Types.Path
+
+sealed trait MethodVerb {
+  val setMethod: Req => Req
+}
+case object MethodVerbGet extends MethodVerb {
+  override val setMethod: (Req) => Req = _.GET
+}
+case object MethodVerbPost extends MethodVerb {
+  override val setMethod: (Req) => Req = _.POST
+}
+case object MethodVerbPut extends MethodVerb {
+  override val setMethod: (Req) => Req = _.PUT
+}
+
+trait APIBuilder[A] {
+  val FullPath: A => String
+  val MethodVerb: MethodVerb
+  def baseRequest(client: Path => Req, arg: A) =
+    MethodVerb.setMethod(client(FullPath(arg)))
+}
 
 trait RequestBuilder[A <: APIResponse] {
   /**
@@ -50,18 +72,3 @@ trait RequestBuilder[A <: APIResponse] {
     }
   }
 }
-
-/**
- * When send invalid request, Mackerel send invalid response.
- * This class wrap Mackerel invalid response.
- * @param body
- */
-class MackerelResponseException(val body: String) extends Exception()
-
-/**
- * This class show mackerel-client-scala error.
- * such as invalid json serialization format and so on.
- * @param body
- * @param cause
- */
-class MackerelClientException(val body: String, cause: Throwable) extends Exception(cause)

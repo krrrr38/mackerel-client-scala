@@ -1,7 +1,7 @@
 package com.krrrr38.mackerel4s
 package api
 
-import com.krrrr38.mackerel4s.model.Interface
+import com.krrrr38.mackerel4s.model.{ HostStatusStandby, HostStatusWorking, Interface }
 import org.scalatest._
 import org.scalatest.concurrent.PatienceConfiguration
 
@@ -25,8 +25,8 @@ class HostAPISpec extends MockApiServerFun with Matchers {
           .setService("myservice")
           .addRole("role2")
           .addRoles(Seq("role1"))
-          .addStatus("working")
-          .addStatuses(Seq("standby"))
+          .addStatus(HostStatusWorking)
+          .addStatuses(Seq(HostStatusStandby))
           .run
 
       // to get result, it takes not small time...
@@ -81,7 +81,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
 
   describe("update host status through api") {
     it("return success info, if success") {
-      val futureResponse = MockHostAPI.updateHostStatus("host_id", "standby").run
+      val futureResponse = MockHostAPI.updateHostStatus("host_id", HostStatusStandby).run
 
       whenReady(futureResponse, patience) { res =>
         res.success shouldBe true

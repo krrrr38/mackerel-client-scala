@@ -1,11 +1,20 @@
 package com.krrrr38.mackerel4s
 package builder
 
-import com.krrrr38.mackerel4s.model.Types._
-import com.krrrr38.mackerel4s.model.LatestTsdbResponse
 import dispatch.Req
 
-case class LatestTsdbBuilder(private val req: Req, hostIds: Seq[HostID], names: Seq[MetricName]) extends RequestBuilder[LatestTsdbResponse] {
+import com.krrrr38.mackerel4s.model.LatestTsdbResponse
+import com.krrrr38.mackerel4s.model.Types.{ Path, HostID, MetricName }
+
+object LatestTsdbBuilder extends APIBuilder[Unit] {
+  override val FullPath = (_: Unit) => "/tsdb/latest"
+  override val MethodVerb: MethodVerb = MethodVerbGet
+
+  def apply(client: Path => Req, hostIds: Seq[HostID], names: Seq[MetricName]): LatestTsdbBuilder =
+    LatestTsdbBuilder(baseRequest(client, ()), hostIds, names)
+}
+
+private[builder] case class LatestTsdbBuilder(private val req: Req, hostIds: Seq[HostID], names: Seq[MetricName]) extends RequestBuilder[LatestTsdbResponse] {
   object Params {
     val HOST_ID = "hostId"
     val NAME = "name"
