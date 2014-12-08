@@ -7,13 +7,13 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import com.krrrr38.mackerel4s.model.MackerelResponseException
+import com.krrrr38.mackerel4s.model.MackerelResponseError
 
 object ExampleUtil {
   def showFutureResponse[A](f: Future[A])(success: A => Unit) = {
     f onComplete {
       case Success(response) => success(response)
-      case Failure(ex: MackerelResponseException) =>
+      case Failure(ex: MackerelResponseError) =>
         println("An error has occured: " + ex.getMessage)
         println("----- body ----- ")
         println(ex.body)

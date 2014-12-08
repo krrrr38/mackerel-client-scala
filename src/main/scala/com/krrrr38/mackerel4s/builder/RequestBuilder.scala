@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonParseException
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.reflect.{ ClassTag, classTag }
 
-import com.krrrr38.mackerel4s.model.{ MackerelClientException, MackerelResponseException, APIResponse }
+import com.krrrr38.mackerel4s.model.{ MackerelClientException, MackerelResponseError, APIResponse }
 import com.krrrr38.mackerel4s.model.Types.Path
 
 sealed trait MethodVerb {
@@ -60,7 +60,7 @@ trait RequestBuilder[A <: APIResponse] {
       maybeFail[A, MappingException](body, json.extract[A])
     } else {
       // XXX sometimes Mackerel return html when sending invalid request
-      throw new MackerelResponseException(body)
+      throw new MackerelResponseError(code, response.getContentType, response.getHeaders, body)
     }
   }
 

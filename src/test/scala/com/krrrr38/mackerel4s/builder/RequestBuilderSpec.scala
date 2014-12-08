@@ -5,7 +5,7 @@ import org.json4s.MappingException
 import com.fasterxml.jackson.core.JsonParseException
 
 import dispatch.{ Req, Res }
-import com.krrrr38.mackerel4s.model.{ MackerelResponseException, MackerelClientException, APIResponse }
+import com.krrrr38.mackerel4s.model.{ MackerelResponseError, MackerelClientException, APIResponse }
 
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{ FunSpec, Matchers }
@@ -32,8 +32,8 @@ class RequestBuilderSpec extends FunSpec with MockFactory with Matchers {
     it("return error, if status is not success [MackerelResponseException]") {
       val futureResponse = Builder.parse(buildSimpleResponse(500, "yunotti"))
       whenReady(futureResponse.failed, patience) { v =>
-        v shouldBe a[MackerelResponseException]
-        v.asInstanceOf[MackerelResponseException].body shouldBe "yunotti"
+        v shouldBe a[MackerelResponseError]
+        v.asInstanceOf[MackerelResponseError].body shouldBe "yunotti"
       }
     }
 
