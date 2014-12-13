@@ -2,7 +2,7 @@ mackerel-client-scala
 ==================
 
 [![Build Status](https://travis-ci.org/krrrr38/mackerel-client-scala.svg)](https://travis-ci.org/krrrr38/mackerel-client-scala)
-[![Coverage Status](https://img.shields.io/coveralls/krrrr38/mackerel-client-scala.svg)](https://coveralls.io/r/krrrr38/mackerel-client-scala)
+<!-- [![Coverage Status](https://img.shields.io/coveralls/krrrr38/mackerel-client-scala.svg)](https://coveralls.io/r/krrrr38/mackerel-client-scala) -->
 
 mackerel-client-scala - Mackerel Scala API Client
 
@@ -17,7 +17,7 @@ Usage
 ```scala
 resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
 
-libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.1.0"
+libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.2.0"
 ```
 
 And there is an example project. Plsese See [Example README](https://github.com/krrrr38/mackerel-client-scala/tree/master/example)
