@@ -80,7 +80,8 @@ object MackerelClientBuild extends Build {
       libraryDependencies ++= Seq(
         json4sJackson, dispatch,
         scalatest, scalamock, jettyServer
-      )
+      ),
+      parallelExecution in Test := false
     )
   )
 
