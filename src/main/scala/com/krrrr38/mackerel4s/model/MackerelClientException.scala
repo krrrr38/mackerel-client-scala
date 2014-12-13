@@ -6,13 +6,13 @@ import com.ning.http.client.FluentCaseInsensitiveStringsMap
 /**
  * When send invalid request, Mackerel send invalid response.
  * This class wrap Mackerel invalid response.
- * @param code
+ * @param statusCode
  * @param contentType
  * @param headers
  * @param body
  */
 class MackerelResponseError(
-  val code: Int,
+  val statusCode: Int,
   val contentType: String,
   val headers: FluentCaseInsensitiveStringsMap,
   val body: String) extends Exception()
