@@ -9,7 +9,7 @@ object HostList extends App {
     println(s"""[${Console.RED}error${Console.RESET}] usage: `sbt "mackerel-client-scala-example/runMain com.krrrr38.mackerel4s.example.HostList apikey"`""")
   } else {
     val apikey = args(0)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     // filter with service and role
     // then get host list
@@ -27,7 +27,7 @@ object CreateHost extends App {
   } else {
     val apikey = args(0)
     val hostName = args(1)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     // create host with role name
     ExampleUtil.showFutureResponse[HostIdResponse](mackerel.createHost(hostName).addRoleFullname("test:db").run) { response =>
@@ -43,7 +43,7 @@ object GetHost extends App {
   } else {
     val apikey = args(0)
     val hostId = args(1)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     // get host
     ExampleUtil.showFutureResponse[HostResponse](mackerel.getHost(hostId).run) { response =>
@@ -60,7 +60,7 @@ object UpdateHost extends App {
     val apikey = args(0)
     val hostId = args(1)
     val newName = args(2)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     ExampleUtil.showFutureResponse[HostIdResponse](mackerel.updateHost(hostId, newName).run) { response =>
       println("Success to update host name for " + hostId)
@@ -77,7 +77,7 @@ object UpdateHostStatus extends App {
     val hostId = args(1)
     lazy val statusError = println(s"[${Console.RED}error${Console.RESET}] status should be working, standby, maintenance or poweroff.")
     HostStatus.fromString(args(2)).fold(statusError) { newStatus =>
-      val mackerel = new Mackerel(apikey)
+      val mackerel = new MackerelClient(apikey)
 
       // update host status
       ExampleUtil.showFutureResponse[SuccessResponse](mackerel.updateHostStatus(hostId, newStatus).run) { response =>
@@ -98,7 +98,7 @@ object RetireHost extends App {
   } else {
     val apikey = args(0)
     val hostId = args(1)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     // update host status
     ExampleUtil.showFutureResponse[SuccessResponse](mackerel.retireHost(hostId).run) { response =>

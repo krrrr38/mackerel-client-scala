@@ -13,7 +13,7 @@ object PostTsdb extends App {
     val apikey = args(0)
     val hostId = args(1)
     val metricName = args(2)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     val value = scala.util.Random.nextInt().abs
     ExampleUtil.showFutureResponse[SuccessResponse](mackerel.postTsdb(Seq(HostMetric(hostId, metricName, value, new Date()))).run) { response =>
@@ -33,7 +33,7 @@ object LatestTsdb extends App {
   } else {
     val apikey = args(0)
     val hostId = args(1)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     ExampleUtil.showFutureResponse[LatestTsdbResponse](mackerel.latestTsdb(Seq(hostId), Seq("loadavg5")).run) { response =>
       println("got following latest tsdb data (only loadavg5)")

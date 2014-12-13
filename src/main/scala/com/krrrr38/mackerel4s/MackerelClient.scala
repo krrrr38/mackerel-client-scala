@@ -21,16 +21,21 @@ object MackerelClientSetting extends ClientSetting {
  *
  * Usage example:
  * {{{
- *   import com.krrrr38.mackerel4s.Mackerel
- *   val mackerel = new Mackerel("api-key")
- *   mackerel.listHosts.setService("service-name").run
+ *   import com.krrrr38.mackerel4s.MackerelClient
+ *   import com.krrrr38.mackerel4s.model.MackerelResponseError
+ *   val mackerel = new MackerelClient("api-key")
+ *   mackerel.listHosts.setService("service-name").run onComplete {
+ *     case Success(res) => ...
+ *     case Failure(ex: MackereResponseError) => s.statusCode ...
+ *     case Failure(ex) => ...
+ *   }
  * }}}
  *
  * @see [[http://help-ja.mackerel.io/entry/spec/api/v0]]
  * @param apiKey get from [[https://mackerel.io/my?tab=overview#apikey]]
  */
-class Mackerel(val apiKey: ApiKey)
-    extends MackerelClient
+class MackerelClient(val apiKey: ApiKey)
+    extends MackerelClientBase
     with HostAPI
     with TsdbAPI
     with ServiceTsdbAPI {

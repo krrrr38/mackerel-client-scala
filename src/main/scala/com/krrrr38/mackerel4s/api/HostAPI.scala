@@ -7,7 +7,7 @@ import com.krrrr38.mackerel4s.model.{ HostStatus, Interface }
 import com.krrrr38.mackerel4s.model.Types._
 
 trait HostAPI {
-  self: MackerelClient =>
+  self: MackerelClientBase =>
 
   /**
    * get hosts info.

@@ -6,7 +6,7 @@ import com.krrrr38.mackerel4s.model.HostMetric
 import com.krrrr38.mackerel4s.builder.{ LatestTsdbBuilder, PostTsdbBuilder }
 
 trait TsdbAPI {
-  self: MackerelClient =>
+  self: MackerelClientBase =>
 
   /**
    * post host metrics.

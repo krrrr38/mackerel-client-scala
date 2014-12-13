@@ -10,7 +10,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
 
   object MockTsdbAPI
       extends TsdbAPI
-      with MackerelClient {
+      with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
   }

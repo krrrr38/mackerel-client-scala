@@ -12,7 +12,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
 
   object MockHostAPI
       extends HostAPI
-      with MackerelClient {
+      with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
   }

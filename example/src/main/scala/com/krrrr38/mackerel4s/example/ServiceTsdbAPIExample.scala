@@ -13,7 +13,7 @@ object PostServiceMetric extends App {
     val apikey = args(0)
     val serviceName = args(1)
     val metricName = args(2)
-    val mackerel = new Mackerel(apikey)
+    val mackerel = new MackerelClient(apikey)
 
     val value = scala.util.Random.nextInt().abs
     ExampleUtil.showFutureResponse[SuccessResponse](mackerel.postServiceMetric(serviceName, Seq(ServiceMetric(metricName, value, new Date()))).run) { response =>

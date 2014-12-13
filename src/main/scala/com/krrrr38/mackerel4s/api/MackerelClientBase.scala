@@ -4,7 +4,7 @@ package api
 import dispatch._
 import com.krrrr38.mackerel4s.model.Types.{ ApiKey, Path }
 
-trait MackerelClient {
+trait MackerelClientBase {
   val setting: ClientSetting
   val apiKey: ApiKey
 

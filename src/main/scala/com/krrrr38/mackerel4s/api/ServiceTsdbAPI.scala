@@ -6,7 +6,7 @@ import com.krrrr38.mackerel4s.model.ServiceMetric
 import com.krrrr38.mackerel4s.builder.PostServiceTsdbBuilder
 
 trait ServiceTsdbAPI {
-  self: MackerelClient =>
+  self: MackerelClientBase =>
 
   /**
    * post service metrics.

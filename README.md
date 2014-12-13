@@ -26,9 +26,14 @@ Synopsis
 ------------
 
 ```scala
-import com.krrrr38.mackerel4s.Mackerel
-val mackerel = new Mackerel("api-key")
-mackerel.listHosts.setService("service-name").run
+import com.krrrr38.mackerel4s.MackerelClient
+import com.krrrr38.mackerel4s.model.MackereResponseError
+val mackerel = new MackerelClient("api-key")
+mackerel.listHosts.setService("service-name").run onComplete {
+  case Success(res) => ...
+  case Failure(ex: MackereResponseError) => s.statusCode ...
+  case Failure(ex) => ...
+}
 ```
 
 Contribution
