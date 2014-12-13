@@ -9,5 +9,4 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
-script: "sbt clean coverage test"
-after_success: "sbt coveralls"
+script: "sbt clean test || sbt clean test"
