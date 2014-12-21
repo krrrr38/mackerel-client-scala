@@ -15,6 +15,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
       with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
+    override val userAgent: String = ""
   }
 
   describe("get host list through api") {

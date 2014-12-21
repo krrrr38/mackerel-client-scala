@@ -13,6 +13,7 @@ class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
       with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
+    override val userAgent: String = ""
   }
 
   describe("post host metric through api") {

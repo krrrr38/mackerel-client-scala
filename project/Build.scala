@@ -18,7 +18,7 @@ object BuildSettings {
       organization := "com.krrrr38",
       scalaVersion := "2.11.4",
       crossScalaVersions := scalaVersion.value :: "2.10.4" :: Nil,
-      version := "0.2.0",
+      version := "0.2.1",
       isSnapshot := false,
       scalacOptions ++= (
         "-deprecation" ::

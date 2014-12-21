@@ -17,7 +17,7 @@ Usage
 ```scala
 resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
 
-libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.2.0"
+libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.2.1"
 ```
 
 And there is an example project. Plsese See [Example README](https://github.com/krrrr38/mackerel-client-scala/tree/master/example)
@@ -28,7 +28,7 @@ Synopsis
 ```scala
 import com.krrrr38.mackerel4s.MackerelClient
 import com.krrrr38.mackerel4s.model.MackereResponseError
-val mackerel = new MackerelClient("api-key")
+val mackerel = new MackerelClient("api-key", "user-agent")
 mackerel.listHosts.setService("service-name").run onComplete {
   case Success(res) => ...
   case Failure(ex: MackereResponseError) => s.statusCode ...

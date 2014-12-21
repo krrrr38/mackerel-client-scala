@@ -4,6 +4,7 @@ import com.krrrr38.mackerel4s.api._
 import com.krrrr38.mackerel4s.model.Types._
 
 trait ClientSetting {
+  val USER_AGENT_KEY = "User-Agent"
   val API_VERSION: String
   val AUTH_HEADER_KEY: String
   val BASE_URL: String
@@ -23,7 +24,7 @@ object MackerelClientSetting extends ClientSetting {
  * {{{
  *   import com.krrrr38.mackerel4s.MackerelClient
  *   import com.krrrr38.mackerel4s.model.MackerelResponseError
- *   val mackerel = new MackerelClient("api-key")
+ *   val mackerel = new MackerelClient("api-key", "user-agent")
  *   mackerel.listHosts.setService("service-name").run onComplete {
  *     case Success(res) => ...
  *     case Failure(ex: MackereResponseError) => s.statusCode ...
@@ -34,10 +35,18 @@ object MackerelClientSetting extends ClientSetting {
  * @see [[http://help-ja.mackerel.io/entry/spec/api/v0]]
  * @param apiKey get from [[https://mackerel.io/my?tab=overview#apikey]]
  */
-class MackerelClient(val apiKey: ApiKey)
+class MackerelClient(val apiKey: ApiKey, val userAgent: String)
     extends MackerelClientBase
     with HostAPI
     with TsdbAPI
     with ServiceTsdbAPI {
+  /**
+   * create mackerel api client with default user agent
+   * @see MackerelClient#this(ApiKey, String)
+   * @param apiKey
+   */
+  def this(apiKey: ApiKey) =
+    this(apiKey, "mackerel-client-scala")
+
   val setting: ClientSetting = MackerelClientSetting
 }

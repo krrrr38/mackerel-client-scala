@@ -13,8 +13,12 @@ class MackerelClientSettingSpec extends FunSpec with Matchers {
       setting.BASE_URL.startsWith("https://mackerel.io/api/") shouldBe true
     }
 
-    it("contain valid header key") {
+    it("contain valid header api key") {
       setting.AUTH_HEADER_KEY shouldBe "X-Api-Key"
+    }
+
+    it("contain valid header User-Agent key") {
+      setting.USER_AGENT_KEY shouldBe "User-Agent"
     }
   }
 }
