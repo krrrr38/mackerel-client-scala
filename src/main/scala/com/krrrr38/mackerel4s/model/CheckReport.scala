@@ -2,6 +2,13 @@ package com.krrrr38.mackerel4s.model
 
 import com.krrrr38.mackerel4s.model.Types._
 
+/**
+ * @param source refer to the following
+ * @param name monitor name
+ * @param status monitor report status. "OK", "CRITICAL", "WARNING", or "UNKNOWN"
+ * @param message auxiliary text attached to a monitor report status, under 1024 characters
+ * @param occurredAt unix timestamp of execution
+ */
 case class CheckReport(source: ReportSource, name: String, status: CheckReportStatus, message: String, occurredAt: Long)
 
 case class ReportSource(hostId: HostID) {

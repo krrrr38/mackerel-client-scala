@@ -73,8 +73,8 @@ trait HostAPI {
    * @param hostId target host id
    * @param name update host name
    * @param meta update meta information
-   * @param interfaces update interfaces
-   * @param roleFullnames additional role names
+   * @param interfaces network interface information
+   * @param roleFullnames array of full names of the roles to which this host belongs
    * @return
    */
   def updateHost(

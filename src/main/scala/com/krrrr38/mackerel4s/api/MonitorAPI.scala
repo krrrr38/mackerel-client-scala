@@ -43,13 +43,13 @@ trait MonitorAPI {
 
   /**
    * create new service monitor
-   * @param name
-   * @param serviceName
-   * @param duration
-   * @param metric
-   * @param operator
-   * @param warning
-   * @param critical
+   * @param name arbitrary name that can be seen in the list of monitors and elsewhere
+   * @param serviceName name of the service targeted by monitoring
+   * @param duration average value of the designated interval (in minutes) will be monitored. valid interval (1 to 5 min.)
+   * @param metric name of the host metric targeted by monitoring. by designating a specific constant string, comparative monitoring is possible
+   * @param operator determines the conditions that state whether the designated variable is either big or small. the observed value is on the left of ”>” or ”<” and the designated value is on the right
+   * @param warning the threshold that generates a warning alert
+   * @param critical the threshold that generates a critical alert
    * @see [[http://help-ja.mackerel.io/entry/spec/api/v0#monitor-create]]
    * @return
    */
@@ -58,7 +58,9 @@ trait MonitorAPI {
 
   /**
    * create new external monitor
-   *
+   * @param name arbitrary name that can refer to monitors list, etc.
+   * @param url monitoring target URL
+   * @param serviceName name of the service targeted by monitoring
    * @see [[http://help-ja.mackerel.io/entry/spec/api/v0#monitor-create]]
    * @return
    */
