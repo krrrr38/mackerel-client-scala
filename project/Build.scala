@@ -10,23 +10,24 @@ object Dependencies {
 }
 
 object BuildSettings {
+
   import scala.sys.process._
-  import scala.Console.{ CYAN, RESET }
+  import scala.Console.{CYAN, RESET}
+  import xerial.sbt.Sonatype.SonatypeKeys.sonatypeProfileName
 
   val buildSettings =
     com.typesafe.sbt.SbtScalariform.scalariformSettings ++ Seq(
       organization := "com.krrrr38",
-      scalaVersion := "2.11.4",
-      crossScalaVersions := scalaVersion.value :: "2.10.4" :: Nil,
-      version := "0.2.1",
-      isSnapshot := false,
+      scalaVersion := "2.11.7",
+      crossScalaVersions := scalaVersion.value :: "2.10.5" :: Nil,
+      version := "0.3.0",
       scalacOptions ++= (
-        "-deprecation" ::
-          "-feature" ::
-          "-unchecked" ::
-          "-Xlint" ::
-          Nil
-        ),
+          "-deprecation" ::
+              "-feature" ::
+              "-unchecked" ::
+              "-Xlint" ::
+              Nil
+          ),
       scalacOptions ++= {
         if (scalaVersion.value.startsWith("2.11"))
           Seq("-Ywarn-unused", "-Ywarn-unused-import")
@@ -36,45 +37,54 @@ object BuildSettings {
       shellPrompt := { state =>
         val branch = Process("git rev-parse --abbrev-ref HEAD").lines.headOption.getOrElse("N/A")
         s"[$CYAN${name.value}$RESET#$CYAN$branch$RESET] "
-      },
-      pomExtra :=
-        <url>http://github.com/krrrr38/mackerel-client-scala</url>
+      }
+    )
+
+  lazy val publishSettings = Seq(
+    sonatypeProfileName := "com.krrrr38",
+    pomExtra := {
+      <url>http://github.com/krrrr38/mackerel-client-scala</url>
           <scm>
             <url>git@github.com:krrrr38/mackerel-client-scala.git</url>
             <connection>scm:git:git@github.com:krrrr38/mackerel-client-scala.git</connection>
           </scm>
+          <licenses>
+            <license>
+              <name>MIT License</name>
+              <url>http://www.opensource.org/licenses/mit-license.php</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
           <developers>
             <developer>
               <id>krrrr38</id>
               <name>Ken Kaizu</name>
               <url>http://www.krrrr38.com</url>
             </developer>
-          </developers>,
-      publishArtifact in Test := false,
-      publishMavenStyle := true,
-      publishTo := {
-        val ghpageMavenDir: Option[String] =
-          if (Process("which ghq").! == 0) {
-            (Process("ghq list --full-path") #| Process("grep krrrr38/maven")).lines.headOption
-          } else None
-        ghpageMavenDir.map { dirPath =>
-          Resolver.file(
-            organization.value,
-            file(dirPath)
-          )(Patterns(true, Resolver.mavenStyleBasePattern))
-        }
-      }
-    )
+          </developers>
+    },
+    publishArtifact in Test := false,
+    publishMavenStyle := true,
+    pomIncludeRepository := { _ => false },
+    publishTo <<= version { (v: String) =>
+      val nexus = "https://oss.sonatype.org/"
+      if (v.trim.endsWith("SNAPSHOT"))
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    }
+  )
 }
 
 object MackerelClientBuild extends Build {
+
   import BuildSettings._
   import Dependencies._
 
   lazy val root = Project(
     "mackerel-client-scala",
     file("."),
-    settings = buildSettings ++ Seq(
+    settings = buildSettings ++ publishSettings ++ Seq(
       name := "mackerel-client-scala",
       description := "Mackerel Scala API Client",
       libraryDependencies ++= Seq(

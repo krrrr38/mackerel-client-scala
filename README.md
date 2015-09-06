@@ -2,6 +2,10 @@ mackerel-client-scala
 ==================
 
 [![Build Status](https://travis-ci.org/krrrr38/mackerel-client-scala.svg)](https://travis-ci.org/krrrr38/mackerel-client-scala)
+[![codecov.io](http://codecov.io/github/krrrr38/mackerel-client-scala/coverage.svg?branch=master)](http://codecov.io/github/krrrr38/mackerel-client-scala?branch=master)
+[![Maven Central 2.11.x](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/mackerel-client-scala_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/mackerel-client-scala_2.11)
+[![Maven Central 2.10.x](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/mackerel-client-scala_2.10/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/mackerel-client-scala_2.10)
+[![License: MIT](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 mackerel-client-scala - Mackerel Scala API Client
 
@@ -14,9 +18,7 @@ Usage
 -------------
 
 ```scala
-resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
-
-libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.2.1"
+libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.3.0"
 ```
 
 Synopsis
