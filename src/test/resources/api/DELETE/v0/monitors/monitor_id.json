@@ -1,0 +1,1 @@
+{"id":"monitor_id","type":"host","name":"disk.aa-00.writes.delta","metric":"disk.aa-00.writes.delta","operator":">","warning":22000.0,"critical":440000.0,"duration":3,"scopes":["website"],"excludeScopes":[]}

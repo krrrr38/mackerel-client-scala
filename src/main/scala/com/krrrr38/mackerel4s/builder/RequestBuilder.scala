@@ -1,6 +1,7 @@
 package com.krrrr38.mackerel4s
 package builder
 
+import com.krrrr38.mackerel4s.serializer.MackerelSerializer
 import dispatch._
 import org.json4s._
 import com.fasterxml.jackson.core.JsonParseException
@@ -23,6 +24,9 @@ case object MethodVerbPost extends MethodVerb {
 case object MethodVerbPut extends MethodVerb {
   override val setMethod: (Req) => Req = _.PUT
 }
+case object MethodVerbDelete extends MethodVerb {
+  override val setMethod: (Req) => Req = _.DELETE
+}
 
 trait APIBuilder[A] {
   val FullPath: A => String
@@ -32,6 +36,8 @@ trait APIBuilder[A] {
 }
 
 trait RequestBuilder[A <: APIResponse] {
+  implicit val formats = MackerelSerializer.FORMATS
+
   /**
    * build request with parameters before run http request
    * @return
@@ -52,7 +58,6 @@ trait RequestBuilder[A <: APIResponse] {
    * @return
    */
   def parse(response: Res)(implicit m: Manifest[A]): Future[A] = Future {
-    implicit val formats = DefaultFormats
     val code = response.getStatusCode
     val body = response.getResponseBody
     if (200 <= code && code < 300) {
@@ -68,7 +73,7 @@ trait RequestBuilder[A <: APIResponse] {
     try {
       f
     } catch {
-      case ex if classTag[E].runtimeClass.isInstance(ex) => throw new MackerelClientException(body, ex)
+      case ex if classTag[E].runtimeClass.isInstance(ex) => throw new MackerelClientException("Failed to parse response: " + ex.getMessage, body, ex)
     }
   }
 }

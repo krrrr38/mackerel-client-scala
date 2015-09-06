@@ -21,10 +21,8 @@ private[builder] case class PostTsdbBuilder(private val req: Req, metrics: Seq[H
    * build request with parameters before run http request
    * @return
    */
-  override protected def buildRequest: Req = {
-    implicit val formats = Serialization.formats(NoTypeHints)
+  override protected def buildRequest: Req =
     req.setBody(Serialization.write(metrics))
-  }
 
   def addMetric(metric: HostMetric) = this.copy(metrics = metric +: this.metrics)
   def addMetrics(metrics: Seq[HostMetric]) = this.copy(metrics = metrics ++ this.metrics)

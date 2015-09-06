@@ -1,11 +1,10 @@
 package com.krrrr38.mackerel4s
 package builder
 
+import com.krrrr38.mackerel4s.model.Interface
+import com.krrrr38.mackerel4s.model.Types.{ HostID, HostName, Path, RoleFullname }
 import dispatch.Req
 import org.json4s.JObject
-
-import com.krrrr38.mackerel4s.model.Interface
-import com.krrrr38.mackerel4s.model.Types.{ Path, HostID, HostName, RoleFullname }
 
 object UpdateHostBuilder extends APIBuilder[HostID] {
   override val FullPath = (hostId: HostID) => s"/hosts/$hostId"

@@ -37,9 +37,14 @@ object MackerelClientSetting extends ClientSetting {
  */
 class MackerelClient(val apiKey: ApiKey, val userAgent: String)
     extends MackerelClientBase
+    with ServiceAPI
+    with RoleAPI
     with HostAPI
+    with GraphDefAPI
     with TsdbAPI
-    with ServiceTsdbAPI {
+    with ServiceTsdbAPI
+    with CheckReportAPI
+    with MonitorAPI {
   /**
    * create mackerel api client with default user agent
    * @see MackerelClient#this(ApiKey, String)

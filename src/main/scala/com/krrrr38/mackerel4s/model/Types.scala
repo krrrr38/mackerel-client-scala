@@ -7,7 +7,11 @@ object Types {
   type HostID = String
   type HostName = String
   type MetricName = String
+  type MetricLabel = String
   type ServiceName = String
   type RoleName = String
   type RoleFullname = String
+  type MonitorID = String
+  type GraphName = String
+  type GraphLabel = String
 }

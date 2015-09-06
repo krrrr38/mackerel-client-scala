@@ -3,7 +3,7 @@ package builder
 
 import dispatch.Req
 import org.json4s.{ NoTypeHints, JObject }
-import org.json4s.jackson.Serialization
+import org.json4s.jackson.{ JsonMethods, Serialization }
 
 import com.krrrr38.mackerel4s.model.{ Interface, HostIdResponse }
 import com.krrrr38.mackerel4s.model.Types.{ Path, HostName, RoleFullname }
@@ -27,13 +27,15 @@ private[builder] case class CreateHostBuilder(private val req: Req, params: Crea
    * build request with parameters before run http request
    * @return
    */
-  override protected def buildRequest: Req = {
-    implicit val formats = Serialization.formats(NoTypeHints)
+  override protected def buildRequest: Req =
     req.setBody(Serialization.write(params))
-  }
 
   def setName(name: HostName) = this.copy(params = params.copy(name = name))
   def setMeta(meta: JObject) = this.copy(params = params.copy(meta = meta))
+  def setMeta(metaJsonObject: String) = {
+    val meta = JsonMethods.parse(metaJsonObject).asInstanceOf[JObject]
+    this.copy(params = params.copy(meta = meta))
+  }
   def addInterface(interface: Interface) = this.copy(params = params.copy(interfaces = interface +: params.interfaces))
   def addInterfaces(interfaces: Seq[Interface]) = this.copy(params = params.copy(interfaces = interfaces ++ params.interfaces))
 

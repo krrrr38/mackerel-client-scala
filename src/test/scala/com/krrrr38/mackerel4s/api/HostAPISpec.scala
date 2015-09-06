@@ -1,12 +1,9 @@
 package com.krrrr38.mackerel4s
 package api
 
-import com.krrrr38.mackerel4s.model.{ HostStatusStandby, HostStatusWorking, Interface }
+import com.krrrr38.mackerel4s.model.{ Interface, HostStatusStandby, HostStatusWorking }
 import org.scalatest._
-import org.scalatest.concurrent.PatienceConfiguration
-
 import org.scalatest.concurrent.ScalaFutures._
-import org.scalatest.time.{ Seconds, Span }
 
 class HostAPISpec extends MockApiServerFun with Matchers {
 
@@ -66,6 +63,7 @@ class HostAPISpec extends MockApiServerFun with Matchers {
       whenReady(futureResponse, patience) { res =>
         res.host.name shouldBe "Layra.local"
         res.host.isRetired shouldBe false
+        res.host.status shouldBe HostStatusStandby
       }
     }
   }

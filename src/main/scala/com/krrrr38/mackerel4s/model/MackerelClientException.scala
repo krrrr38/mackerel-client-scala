@@ -23,4 +23,8 @@ class MackerelResponseError(
  * @param body
  * @param cause
  */
-class MackerelClientException(val body: String, cause: Throwable) extends Exception(cause)
+class MackerelClientException(val message: String, val body: String, cause: Throwable) extends Exception(message, cause) {
+  def this(message: String) {
+    this(message, "", null)
+  }
+}

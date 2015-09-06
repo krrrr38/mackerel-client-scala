@@ -1,7 +1,7 @@
 package com.krrrr38.mackerel4s
 package model
 
-import Types._
+import com.krrrr38.mackerel4s.model.Types._
 
 object HostStatus {
   def fromString(status: String): Option[HostStatus] = status match {
@@ -23,8 +23,11 @@ sealed trait HostStatus {
 }
 
 case object HostStatusWorking extends HostStatus
+
 case object HostStatusStandby extends HostStatus
+
 case object HostStatusMaintenance extends HostStatus
+
 case object HostStatusPoweroff extends HostStatus
 
 case class Host(
@@ -33,7 +36,7 @@ case class Host(
   isRetired: Boolean,
   meta: org.json4s.JValue,
   `type`: String,
-  status: String,
+  status: HostStatus,
   memo: String,
   createdAt: Int,
   roles: Map[ServiceName, Seq[RoleName]],

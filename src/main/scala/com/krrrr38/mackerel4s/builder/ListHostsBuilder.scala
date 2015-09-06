@@ -1,10 +1,9 @@
 package com.krrrr38.mackerel4s
 package builder
 
-import dispatch.Req
-
+import com.krrrr38.mackerel4s.model.Types.{ HostName, Path, RoleName, ServiceName }
 import com.krrrr38.mackerel4s.model.{ HostStatus, HostsResponse }
-import com.krrrr38.mackerel4s.model.Types.{ Path, HostName, ServiceName, RoleName }
+import dispatch.Req
 
 object ListHostsBuilder extends APIBuilder[Unit] {
   override val FullPath = (_: Unit) => "/hosts.json"
@@ -29,6 +28,7 @@ private[builder] case class ListHostsParams(
   statuses: Seq[HostStatus] = Nil)
 
 private[builder] case class ListHostsBuilder(private val req: Req, params: ListHostsParams) extends RequestBuilder[HostsResponse] {
+
   object Params {
     val SERVICE = "service"
     val ROLE = "role"
@@ -52,9 +52,14 @@ private[builder] case class ListHostsBuilder(private val req: Req, params: ListH
   }
 
   def setService(service: ServiceName) = this.copy(params = params.copy(service = Some(service)))
+
   def addRole(role: RoleName) = this.copy(params = params.copy(roles = role +: params.roles))
+
   def addRoles(roles: Seq[RoleName]) = this.copy(params = params.copy(roles = roles ++ params.roles))
+
   def setName(name: HostName) = this.copy(params = params.copy(name = Some(name)))
+
   def addStatus(status: HostStatus) = this.copy(params = params.copy(statuses = status +: params.statuses))
+
   def addStatuses(statuses: Seq[HostStatus]) = this.copy(params = params.copy(statuses = statuses ++ params.statuses))
 }

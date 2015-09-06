@@ -23,8 +23,6 @@ private[builder] case class UpdateHostStatusBuilder(private val req: Req, params
    * build request with parameters before run http request
    * @return
    */
-  override protected def buildRequest: Req = {
-    implicit val formats = Serialization.formats(NoTypeHints)
+  override protected def buildRequest: Req =
     req.setBody(Serialization.write(params))
-  }
 }

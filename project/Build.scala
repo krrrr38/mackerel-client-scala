@@ -4,9 +4,9 @@ import Keys._
 object Dependencies {
   val json4sJackson = "org.json4s" %% "json4s-jackson" % "3.2.11"
   val dispatch = "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
-  val scalatest = "org.scalatest" %% "scalatest" % "2.2.1" % "test"
-  val scalamock = "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % "test"
-  val jettyServer = "org.eclipse.jetty" % "jetty-server" % "9.2.5.v20141112" % "test"
+  val scalatest = "org.scalatest" %% "scalatest" % "2.2.1" % Test
+  val scalamock = "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % Test
+  val jettyServer = "org.eclipse.jetty" % "jetty-server" % "9.2.5.v20141112" % Test
 }
 
 object BuildSettings {
