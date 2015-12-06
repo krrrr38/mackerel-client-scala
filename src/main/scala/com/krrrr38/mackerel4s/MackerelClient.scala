@@ -41,8 +41,8 @@ class MackerelClient(val apiKey: ApiKey, val userAgent: String)
     with RoleAPI
     with HostAPI
     with GraphDefAPI
-    with TsdbAPI
-    with ServiceTsdbAPI
+    with HostMetricAPI
+    with ServiceMetricAPI
     with CheckReportAPI
     with MonitorAPI {
   /**

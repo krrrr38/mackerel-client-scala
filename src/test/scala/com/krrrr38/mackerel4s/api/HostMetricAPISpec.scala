@@ -6,10 +6,10 @@ import org.scalatest._
 
 import org.scalatest.concurrent.ScalaFutures._
 
-class TsdbAPISpec extends MockApiServerFun with Matchers {
+class HostMetricAPISpec extends MockApiServerFun with Matchers {
 
-  object MockTsdbAPI
-      extends TsdbAPI
+  object MockHostMetricAPI
+      extends HostMetricAPI
       with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
@@ -19,7 +19,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
   describe("post host metric through api") {
     it("return success info, if success") {
       val futureResponse =
-        MockTsdbAPI.postTsdb(Seq(HostMetric("host_id", "metric_name", 10.0, 141790955)))
+        MockHostMetricAPI.postHostMetircs(Seq(HostMetric("host_id", "metric_name", 10.0, 141790955)))
           .addMetric(HostMetric("host_id", "metric_name", 8.2, 141790855))
           .addMetrics(Seq(HostMetric("host_id", "metric_name", 5.1, 141790755)))
           .run
@@ -32,7 +32,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
     it("return success info with java.util.Date") {
       import java.util.Date
       val futureResponse =
-        MockTsdbAPI.postTsdb(Seq(HostMetric("host_id", "metric_name", 10.0, new Date())))
+        MockHostMetricAPI.postHostMetircs(Seq(HostMetric("host_id", "metric_name", 10.0, new Date())))
           .run
 
       whenReady(futureResponse, patience) { res =>
@@ -44,7 +44,7 @@ class TsdbAPISpec extends MockApiServerFun with Matchers {
   describe("get latest host metric through api") {
     it("return host metric info, if success") {
       val futureResponse =
-        MockTsdbAPI.latestTsdb()
+        MockHostMetricAPI.getLatestHostMetrics()
           .addHostId("host1")
           .addHostIds(Seq("host2"))
           .addName("loadavg5")

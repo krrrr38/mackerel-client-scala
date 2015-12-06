@@ -6,10 +6,10 @@ import org.scalatest._
 
 import org.scalatest.concurrent.ScalaFutures._
 
-class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
+class ServiceMetricAPISpec extends MockApiServerFun with Matchers {
 
-  object MockServiceTsdbAPI
-      extends ServiceTsdbAPI
+  object MockServiceMetricAPI
+      extends ServiceMetricAPI
       with MackerelClientBase {
     override val setting: ClientSetting = mockSetting
     override val apiKey: String = ""
@@ -19,7 +19,7 @@ class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
   describe("post host metric through api") {
     it("return success info, if success") {
       val futureResponse =
-        MockServiceTsdbAPI.postServiceMetric("service_name", Seq(ServiceMetric("metric_name", 10.0, 141790955)))
+        MockServiceMetricAPI.postServiceMetrics("service_name", Seq(ServiceMetric("metric_name", 10.0, 141790955)))
           .addMetric(ServiceMetric("metric_name", 8.2, 141790855))
           .addMetrics(Seq(ServiceMetric("metric_name", 5.1, 141790755)))
           .run
@@ -32,7 +32,7 @@ class ServiceTsdbAPISpec extends MockApiServerFun with Matchers {
     it("return success info with java.util.Date") {
       import java.util.Date
       val futureResponse =
-        MockServiceTsdbAPI.postServiceMetric("service_name", Seq(ServiceMetric("metric_name", 10.0, new Date())))
+        MockServiceMetricAPI.postServiceMetric("service_name", Seq(ServiceMetric("metric_name", 10.0, new Date())))
           .run
       whenReady(futureResponse, patience) { res =>
         res.success shouldBe true
