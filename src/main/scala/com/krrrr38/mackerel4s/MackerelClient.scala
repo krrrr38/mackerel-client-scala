@@ -44,7 +44,8 @@ class MackerelClient(val apiKey: ApiKey, val userAgent: String)
     with HostMetricAPI
     with ServiceMetricAPI
     with CheckReportAPI
-    with MonitorAPI {
+    with MonitorAPI
+    with AlertAPI {
   /**
    * create mackerel api client with default user agent
    * @see MackerelClient#this(ApiKey, String)

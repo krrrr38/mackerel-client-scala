@@ -59,8 +59,8 @@ Status
 ||Get monitor configurations|GET /api/v0/monitors|:white_check_mark:|
 ||Update monitor configurations|PUT /api/v0/monitors/<monitorId>|:white_check_mark:|
 ||Delete monitor configurations|DELETE /api/v0/monitors/<monitorId>|:white_check_mark:|
-|Alerts|Getting Alerts|GET /api/v0/alerts|:no_entry_sign:|
-||Closing Alerts|POST /api/v0/alerts/<alertId>/close|:no_entry_sign:|
+|Alerts|Getting Alerts|GET /api/v0/alerts|:white_check_mark:|
+||Closing Alerts|POST /api/v0/alerts/<alertId>/close|:white_check_mark:|
 |Dashboards|Creating Dashboards|POST /api/v0/dashboards|:no_entry_sign:|
 ||Getting Dashboards|GET /api/v0/dashboards/<dashboardId>|:no_entry_sign:|
 ||Updating Dashboards|PUT /api/v0/dashboards/<dashboardId>|:no_entry_sign:|

@@ -12,6 +12,7 @@ object MackerelSerializer {
     MonitorTypeSerializer +
     MonitorOperatorSerializer +
     HostStatusSerializer +
+    AlertStatusSerializer +
     CheckReportStatusSerializer +
     GraphUnitTypeSerializer
 }
@@ -57,6 +58,14 @@ object HostStatusSerializer extends CustomSerializer[HostStatus](formats =>
     case JString(status) => HostStatus.fromString(status).getOrElse(throw new MackerelClientException("Failed to parse host status: " + status))
   }, {
     case hostStatus: HostStatus => JString(hostStatus.toString)
+  })
+)
+
+object AlertStatusSerializer extends CustomSerializer[AlertStatus](formats =>
+  ({
+    case JString(status) => AlertStatus.fromString(status).getOrElse(throw new MackerelClientException("Failed to parse host status: " + status))
+  }, {
+    case alertStatus: AlertStatus => JString(alertStatus.toString)
   })
 )
 

@@ -19,6 +19,8 @@ case class MonitorIdResponse(id: MonitorID) extends APIResponse
 
 case class MonitorsResponse(monitors: Seq[Monitor]) extends APIResponse
 
+case class AlertsResponse(alerts: Seq[Alert]) extends APIResponse
+
 case class LatestTsdbResponse(tsdbLatest: Map[HostName, Map[MetricName, MetricValue]]) extends APIResponse
 
 case class SuccessResponse(success: Boolean) extends APIResponse

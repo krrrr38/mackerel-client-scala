@@ -12,6 +12,7 @@ object Types {
   type RoleName = String
   type RoleFullname = String
   type MonitorID = String
+  type AlertID = String
   type GraphName = String
   type GraphLabel = String
 }
