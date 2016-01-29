@@ -21,6 +21,14 @@ Usage
 libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.3.0"
 ```
 
+or SNAPSHOT version
+
+```scala
+resolvers += Opts.resolver.sonatypeSnapshots
+
+libraryDependencies += "com.krrrr38" %% "mackerel-client-scala" % "0.3.1-SNAPSHOT"
+```
+
 Synopsis
 ------------
 

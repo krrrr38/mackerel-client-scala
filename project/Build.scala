@@ -20,7 +20,7 @@ object BuildSettings {
       organization := "com.krrrr38",
       scalaVersion := "2.11.7",
       crossScalaVersions := scalaVersion.value :: "2.10.5" :: Nil,
-      version := "0.3.0",
+      version := "0.3.1-SNAPSHOT",
       scalacOptions ++= (
           "-deprecation" ::
               "-feature" ::
